@@ -1,0 +1,169 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence, useAnimation, Variants } from "framer-motion";
+import Image from "next/image";
+import { ease, heroVariants, slideUp, fadeIn } from "@/lib/motion";
+import { scrollToSection } from "@/lib/utils";
+
+function ScrollIndicator() {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const handler = () => { if (window.scrollY > 80) setVisible(false); };
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        >
+          <motion.span
+            className="font-barlow text-xs"
+            style={{ color: "var(--orange)", letterSpacing: "0.15em" }}
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            SCROLL
+          </motion.span>
+          <div
+            className="relative w-px overflow-hidden"
+            style={{ height: "48px", background: "var(--border-color)" }}
+          >
+            <motion.div
+              className="absolute top-0 left-0 w-full"
+              style={{ height: "40%", background: "var(--orange)" }}
+              animate={{ y: ["0%", "260%"] }}
+              transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut", repeatDelay: 0.3 }}
+            />
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+const dividerVariant: Variants = {
+  hidden: { scaleX: 0, opacity: 0 },
+  visible: { scaleX: 1, opacity: 1, transition: { duration: 0.6, ease } },
+};
+
+export default function HeroSection() {
+  const logoControls = useAnimation();
+  const [logoReady, setLogoReady] = useState(false);
+
+  useEffect(() => {
+    const sequence = async () => {
+      await logoControls.start({
+        rotate: 360,
+        opacity: 1,
+        scale: 1,
+        transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+      });
+      setLogoReady(true);
+    };
+    sequence();
+  }, [logoControls]);
+
+  return (
+    <section
+      id="hero"
+      className="relative flex flex-col items-center justify-center min-h-screen w-full overflow-hidden"
+      style={{ background: "var(--black)" }}
+    >
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(196,74,26,0.07) 0%, transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none opacity-5"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(196,74,26,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(196,74,26,0.3) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }}
+      />
+
+      <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, rotate: -30 }}
+          animate={logoControls}
+          className="mb-20 md:mb-28"
+        >
+          <Image
+            src="/images/bobs-logo.jpeg"
+            alt="Black On Both Sides Music"
+            width={240}
+            height={120}
+            className="w-48 md:w-60 lg:w-72 h-auto"
+            style={{ mixBlendMode: "screen" }}
+            priority
+          />
+        </motion.div>
+
+        <AnimatePresence>
+          {logoReady && (
+            <motion.div
+              variants={heroVariants}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-col items-center gap-3 md:gap-4"
+            >
+              <motion.div variants={slideUp} className="overflow-hidden">
+                <h1
+                  className="font-bebas leading-none"
+                  style={{ fontSize: "clamp(52px, 10vw, 140px)", color: "var(--orange)", letterSpacing: "0.03em" }}
+                >
+                  NOT ABOUT COLOUR.
+                </h1>
+              </motion.div>
+
+              <motion.div variants={slideUp} className="overflow-hidden">
+                <h1
+                  className="font-bebas leading-none"
+                  style={{ fontSize: "clamp(52px, 10vw, 140px)", color: "var(--orange)", letterSpacing: "0.03em" }}
+                >
+                  ABOUT CULTURE.
+                </h1>
+              </motion.div>
+
+              <motion.div
+                variants={dividerVariant}
+                className="w-24 h-px origin-left mt-4"
+                style={{ background: "var(--orange)" }}
+              />
+
+              <motion.p
+                variants={fadeIn}
+                className="font-barlow font-semibold text-sm md:text-base mt-2"
+                style={{ color: "var(--muted)", letterSpacing: "0.20em" }}
+              >
+                ALL BLACK-OWNED · MUSIC SUPERVISION
+              </motion.p>
+
+              <motion.div variants={fadeIn} className="mt-8 md:mt-10">
+                <button
+                  onClick={() => scrollToSection("contact")}
+                  className="btn-solid px-8 py-3.5"
+                >
+                  CONTACT NOW
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      <ScrollIndicator />
+    </section>
+  );
+}
