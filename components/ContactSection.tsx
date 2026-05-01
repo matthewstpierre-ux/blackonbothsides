@@ -26,15 +26,31 @@ const inputBase: React.CSSProperties = {
 export default function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [focused, setFocused] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Send failed");
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const fieldBorder = (name: string): React.CSSProperties => ({
@@ -156,12 +172,18 @@ export default function ContactSection() {
                   />
                 </div>
 
+                {error && (
+                  <p className="font-barlow text-sm text-center" style={{ color: "#e05c3a" }}>
+                    {error}
+                  </p>
+                )}
                 <button
                   type="submit"
+                  disabled={sending}
                   className="btn-solid py-4 w-full mt-1"
-                  style={{ letterSpacing: "0.12em" }}
+                  style={{ letterSpacing: "0.12em", opacity: sending ? 0.6 : 1 }}
                 >
-                  SEND MESSAGE
+                  {sending ? "SENDING..." : "SEND MESSAGE"}
                 </button>
               </motion.form>
             )}

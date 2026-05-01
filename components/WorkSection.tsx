@@ -6,24 +6,15 @@ import { ease } from "@/lib/motion";
 import { scrollToSection } from "@/lib/utils";
 
 const SLOTS = [
-  { slot: 1, title: "PRODUCTION TITLE", category: "FILM" },
-  { slot: 2, title: "PRODUCTION TITLE", category: "TELEVISION" },
-  { slot: 3, title: "PRODUCTION TITLE", category: "COMMERCIAL" },
-  { slot: 4, title: "PRODUCTION TITLE", category: "FILM" },
-  { slot: 5, title: "PRODUCTION TITLE", category: "TELEVISION" },
-  { slot: 6, title: "PRODUCTION TITLE", category: "COMMERCIAL" },
-  { slot: 7, title: "PRODUCTION TITLE", category: "FILM" },
-  { slot: 8, title: "PRODUCTION TITLE", category: "TELEVISION" },
+  { vimeoId: "911333859",  title: "BRIA MACK GETS A LIFE",  category: "TELEVISION" },
+  { vimeoId: "1069654389", title: "PLAY IT LOUD!",           category: "FILM" },
+  { vimeoId: "1069654462", title: "SOUND PRESSURE",          category: "FILM" },
+  { vimeoId: "941233879",  title: "TWEETATIONS",             category: "TELEVISION" },
+  { vimeoId: "911658342",  title: "DECIEM, THE ORDINARY",    category: "COMMERCIAL" },
+  { vimeoId: "911332743",  title: "APPLE, iPHONE 14",        category: "COMMERCIAL" },
+  { vimeoId: "822712864",  title: "APPLE, HOMEPOD",          category: "COMMERCIAL" },
 ];
 
-function PlayIcon() {
-  return (
-    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden="true">
-      <circle cx="36" cy="36" r="35" stroke="#C44A1A" strokeWidth="1.5" />
-      <polygon points="29,22 53,36 29,50" fill="#C44A1A" />
-    </svg>
-  );
-}
 
 function ArrowIcon({ dir }: { dir: "left" | "right" }) {
   return (
@@ -125,15 +116,15 @@ export default function WorkSection() {
                     initial="enter"
                     animate="center"
                     exit="exit"
-                    className="absolute inset-0 flex items-center justify-center"
+                    className="absolute inset-0"
                   >
-                    <span
-                      className="absolute top-5 left-7 font-bebas pointer-events-none select-none"
-                      style={{ fontSize: "clamp(64px, 12vw, 120px)", color: "rgba(196,74,26,0.07)", lineHeight: 1 }}
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <PlayIcon />
+                    <iframe
+                      src={`https://player.vimeo.com/video/${slot.vimeoId}?title=0&byline=0&portrait=0&color=C44A1A`}
+                      className="absolute inset-0 w-full h-full"
+                      style={{ border: "none" }}
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                    />
                   </motion.div>
                 </AnimatePresence>
               </div>

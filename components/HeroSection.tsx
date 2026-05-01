@@ -78,18 +78,21 @@ export default function HeroSection() {
       className="relative flex flex-col items-center justify-center min-h-screen w-full overflow-hidden"
       style={{ background: "var(--black)" }}
     >
+      {/* Looping video background */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <iframe
+          src="https://player.vimeo.com/video/911332743?background=1&autoplay=1&loop=1&muted=1&playsinline=1"
+          className="video-bg"
+          allow="autoplay; fullscreen"
+          tabIndex={-1}
+        />
+        <div className="absolute inset-0" style={{ background: "rgba(10,10,10,0.68)" }} />
+      </div>
+
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(196,74,26,0.07) 0%, transparent 70%)",
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none opacity-5"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(196,74,26,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(196,74,26,0.3) 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
+          background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(196,74,26,0.08) 0%, transparent 70%)",
         }}
       />
 

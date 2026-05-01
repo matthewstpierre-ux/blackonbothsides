@@ -10,6 +10,7 @@ const team = [
     name: "EVERTON LEWIS JR.",
     role: "FOUNDER & CHIEF MUSIC SUPERVISOR",
     photo: "/images/everton.jpg",
+    objectPosition: "25% top",
     bio: "Everton Lewis Jr. is the visionary behind both Wracket Music Supervision and Black On Both Sides Music, with a career defined by bold creative instincts and an unwavering commitment to cultural authenticity. A former Music Supervisor at Apple (Contract) and Vice Media, and a proud member of the Guild of Music Supervisors Canada, Everton brings over a decade of industry expertise and a rare ability to translate lived culture into powerful sonic storytelling.",
   },
   {
@@ -94,7 +95,8 @@ export default function TeamSection() {
                   src={member.photo}
                   alt={member.name}
                   fill
-                  className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  style={{ objectPosition: member.objectPosition ?? "center top" }}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div
