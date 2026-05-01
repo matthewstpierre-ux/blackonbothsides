@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { ease, heroVariants, slideUp, fadeIn } from "@/lib/motion";
 import { scrollToSection } from "@/lib/utils";
@@ -55,6 +55,37 @@ const dividerVariant: Variants = {
 };
 
 export default function HeroSection() {
+  const vimeoContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let player: import("@vimeo/player").default | null = null;
+
+    async function initPlayer() {
+      const Player = (await import("@vimeo/player")).default;
+      if (!vimeoContainerRef.current) return;
+
+      player = new Player(vimeoContainerRef.current, {
+        id: 754357858,
+        background: true,
+        autoplay: true,
+        muted: true,
+        loop: true,
+        playsinline: true,
+        controls: false,
+      });
+
+      // Play immediately on load
+      player.on("loaded", () => { player?.play().catch(() => {}); });
+
+      // iOS: trigger on first touch (user has interacted = browser allows play)
+      const onTouch = () => { player?.play().catch(() => {}); };
+      document.addEventListener("touchstart", onTouch, { once: true });
+    }
+
+    initPlayer();
+    return () => { player?.destroy(); };
+  }, []);
+
   return (
     <section
       id="hero"
@@ -63,12 +94,7 @@ export default function HeroSection() {
     >
       {/* Looping video background */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <iframe
-          src="https://player.vimeo.com/video/754357858?background=1&autoplay=1&loop=1&muted=1&playsinline=1"
-          className="video-bg"
-          allow="autoplay; fullscreen"
-          tabIndex={-1}
-        />
+        <div ref={vimeoContainerRef} className="video-bg" />
         <div className="absolute inset-0" style={{ background: "rgba(10,10,10,0.68)" }} />
       </div>
 

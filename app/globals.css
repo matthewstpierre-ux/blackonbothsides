@@ -191,12 +191,16 @@ body {
   border: none;
   pointer-events: none;
 }
-
-/* ─── Mobile: hide video background (autoplay blocked by browsers) ── */
-@media (max-width: 767px) {
-  .video-bg {
-    display: none;
-  }
+/* Vimeo SDK injects an iframe inside .video-bg — match sizing */
+.video-bg iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  border: none;
+  pointer-events: none;
 }
 
 /* ─── Reduced motion ────────────────────────────────────────────── */
