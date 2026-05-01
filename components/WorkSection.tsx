@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ease } from "@/lib/motion";
 import { scrollToSection } from "@/lib/utils";
 
@@ -39,6 +39,8 @@ export default function WorkSection() {
   const [index, setIndex] = useState(0);
   const [dir, setDir] = useState(1);
   const total = SLOTS.length;
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0.4 });
 
   const go = (d: number) => {
     setDir(d);
@@ -50,6 +52,7 @@ export default function WorkSection() {
   return (
     <section
       id="work"
+      ref={sectionRef}
       className="relative w-full py-24 md:py-36"
       style={{ background: "var(--black)" }}
     >
@@ -112,7 +115,7 @@ export default function WorkSection() {
               >
                 <AnimatePresence custom={dir} mode="wait">
                   <motion.div
-                    key={index}
+                    key={`${index}-${isInView}`}
                     custom={dir}
                     variants={slideVariants}
                     initial="enter"
@@ -121,7 +124,7 @@ export default function WorkSection() {
                     className="absolute inset-0"
                   >
                     <iframe
-                      src={`https://player.vimeo.com/video/${slot.vimeoId}?title=0&byline=0&portrait=0&color=C44A1A`}
+                      src={`https://player.vimeo.com/video/${slot.vimeoId}?title=0&byline=0&portrait=0&color=C44A1A${isInView ? "&autoplay=1" : ""}`}
                       className="absolute inset-0 w-full h-full"
                       style={{ border: "none" }}
                       allow="autoplay; fullscreen; picture-in-picture"
