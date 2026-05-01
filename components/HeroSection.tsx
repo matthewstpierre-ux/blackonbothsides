@@ -75,7 +75,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative flex flex-col items-center justify-center min-h-screen w-full overflow-hidden"
+      className="relative flex flex-col items-center justify-center min-h-screen w-full overflow-hidden pt-20"
       style={{ background: "var(--black)" }}
     >
       {/* Looping video background */}
