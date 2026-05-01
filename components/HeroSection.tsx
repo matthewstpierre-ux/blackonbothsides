@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useAnimation, Variants } from "framer-motion";
-import Image from "next/image";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { ease, heroVariants, slideUp, fadeIn } from "@/lib/motion";
 import { scrollToSection } from "@/lib/utils";
 
@@ -56,22 +55,6 @@ const dividerVariant: Variants = {
 };
 
 export default function HeroSection() {
-  const logoControls = useAnimation();
-  const [logoReady, setLogoReady] = useState(false);
-
-  useEffect(() => {
-    const sequence = async () => {
-      await logoControls.start({
-        rotate: 360,
-        opacity: 1,
-        scale: 1,
-        transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-      });
-      setLogoReady(true);
-    };
-    sequence();
-  }, [logoControls]);
-
   return (
     <section
       id="hero"
@@ -98,72 +81,52 @@ export default function HeroSection() {
 
       <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, rotate: -30 }}
-          animate={logoControls}
-          className="mb-20 md:mb-28"
+          variants={heroVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col items-center gap-3 md:gap-4"
         >
-          <Image
-            src="/images/bobs-logo.jpeg"
-            alt="Black On Both Sides Music"
-            width={240}
-            height={120}
-            className="w-48 md:w-60 lg:w-72 h-auto"
-            style={{ mixBlendMode: "screen" }}
-            priority
-          />
-        </motion.div>
-
-        <AnimatePresence>
-          {logoReady && (
-            <motion.div
-              variants={heroVariants}
-              initial="hidden"
-              animate="visible"
-              className="flex flex-col items-center gap-3 md:gap-4"
+          <motion.div variants={slideUp} className="overflow-hidden">
+            <h1
+              className="font-bebas leading-none"
+              style={{ fontSize: "clamp(52px, 10vw, 140px)", color: "var(--orange)", letterSpacing: "0.03em" }}
             >
-              <motion.div variants={slideUp} className="overflow-hidden">
-                <h1
-                  className="font-bebas leading-none"
-                  style={{ fontSize: "clamp(52px, 10vw, 140px)", color: "var(--orange)", letterSpacing: "0.03em" }}
-                >
-                  NOT ABOUT COLOUR.
-                </h1>
-              </motion.div>
+              NOT ABOUT COLOUR.
+            </h1>
+          </motion.div>
 
-              <motion.div variants={slideUp} className="overflow-hidden">
-                <h1
-                  className="font-bebas leading-none"
-                  style={{ fontSize: "clamp(52px, 10vw, 140px)", color: "var(--orange)", letterSpacing: "0.03em" }}
-                >
-                  ABOUT CULTURE.
-                </h1>
-              </motion.div>
+          <motion.div variants={slideUp} className="overflow-hidden">
+            <h1
+              className="font-bebas leading-none"
+              style={{ fontSize: "clamp(52px, 10vw, 140px)", color: "var(--orange)", letterSpacing: "0.03em" }}
+            >
+              ABOUT CULTURE.
+            </h1>
+          </motion.div>
 
-              <motion.div
-                variants={dividerVariant}
-                className="w-24 h-px origin-left mt-4"
-                style={{ background: "var(--orange)" }}
-              />
+          <motion.div
+            variants={dividerVariant}
+            className="w-24 h-px origin-left mt-4"
+            style={{ background: "var(--orange)" }}
+          />
 
-              <motion.p
-                variants={fadeIn}
-                className="font-barlow font-semibold text-sm md:text-base mt-2"
-                style={{ color: "var(--muted)", letterSpacing: "0.20em" }}
-              >
-                ALL BLACK-OWNED · MUSIC SUPERVISION
-              </motion.p>
+          <motion.p
+            variants={fadeIn}
+            className="font-barlow font-semibold text-sm md:text-base mt-2"
+            style={{ color: "var(--muted)", letterSpacing: "0.20em" }}
+          >
+            ALL BLACK-OWNED · MUSIC SUPERVISION
+          </motion.p>
 
-              <motion.div variants={fadeIn} className="mt-8 md:mt-10">
-                <button
-                  onClick={() => scrollToSection("contact")}
-                  className="btn-solid px-8 py-3.5"
-                >
-                  CONTACT NOW
-                </button>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          <motion.div variants={fadeIn} className="mt-8 md:mt-10">
+            <button
+              onClick={() => scrollToSection("contact")}
+              className="btn-solid px-8 py-3.5"
+            >
+              CONTACT NOW
+            </button>
+          </motion.div>
+        </motion.div>
       </div>
 
       <ScrollIndicator />
