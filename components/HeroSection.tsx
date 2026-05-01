@@ -64,7 +64,7 @@ export default function HeroSection() {
       {/* Looping video background */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         <iframe
-          src="https://player.vimeo.com/video/911332743?background=1&autoplay=1&loop=1&muted=1&playsinline=1"
+          src="https://player.vimeo.com/video/754357858?background=1&autoplay=1&loop=1&muted=1&playsinline=1"
           className="video-bg"
           allow="autoplay; fullscreen"
           tabIndex={-1}
