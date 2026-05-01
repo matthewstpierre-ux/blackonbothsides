@@ -14,6 +14,7 @@ const SLOTS = [
   { vimeoId: "911332743",  title: "APPLE, iPHONE 14",        category: "COMMERCIAL" },
   { vimeoId: "822712864",  title: "APPLE, HOMEPOD",          category: "COMMERCIAL" },
   { vimeoId: "754357858",  title: "APPLE, AIRPODS",          category: "COMMERCIAL" },
+  { vimeoId: "754355704",  title: "APPLE, iPHONE 14 REVEAL", category: "COMMERCIAL" },
 ];
 
 

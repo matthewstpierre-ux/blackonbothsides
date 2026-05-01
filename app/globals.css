@@ -192,6 +192,13 @@ body {
   pointer-events: none;
 }
 
+/* ─── Mobile: hide video background (autoplay blocked by browsers) ── */
+@media (max-width: 767px) {
+  .video-bg {
+    display: none;
+  }
+}
+
 /* ─── Reduced motion ────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
