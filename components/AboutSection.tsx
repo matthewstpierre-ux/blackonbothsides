@@ -48,7 +48,7 @@ export default function AboutSection() {
             viewport={{ once: true, amount: 0.2 }}
             className="relative"
           >
-            <div className="relative overflow-hidden" style={{ aspectRatio: "4/5" }}>
+            <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
               <Image
                 src="/images/team-group.jpg"
                 alt="Black On Both Sides Music Team"

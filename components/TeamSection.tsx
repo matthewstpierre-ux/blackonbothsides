@@ -10,7 +10,7 @@ const team = [
     name: "EVERTON LEWIS JR.",
     role: "FOUNDER & CHIEF MUSIC SUPERVISOR",
     photo: "/images/everton.jpg",
-    objectPosition: "40% top",
+    objectPosition: "20% top",
     bio: "Everton Lewis Jr. is the visionary behind both Wracket Music Supervision and Black On Both Sides Music, with a career defined by bold creative instincts and an unwavering commitment to cultural authenticity. A former Music Supervisor at Apple (Contract) and Vice Media, and a proud member of the Guild of Music Supervisors Canada, Everton brings over a decade of industry expertise and a rare ability to translate lived culture into powerful sonic storytelling.",
   },
   {
