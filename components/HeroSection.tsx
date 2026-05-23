@@ -117,7 +117,7 @@ export default function HeroSection() {
               className="font-bebas leading-none"
               style={{ fontSize: "clamp(52px, 10vw, 140px)", color: "var(--orange)", letterSpacing: "0.03em" }}
             >
-              NOT ABOUT COLOUR.
+              NOT ABOUT COLOR.
             </h1>
           </motion.div>
 

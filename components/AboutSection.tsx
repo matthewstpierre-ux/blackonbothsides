@@ -117,7 +117,7 @@ export default function AboutSection() {
             className="font-bebas leading-tight"
             style={{ fontSize: "clamp(36px, 6vw, 80px)", color: "var(--orange)", letterSpacing: "0.02em" }}
           >
-            &ldquo;It&rsquo;s not about colour,
+            &ldquo;It&rsquo;s not about color,
             <br />
             it&rsquo;s about culture.&rdquo;
           </blockquote>
