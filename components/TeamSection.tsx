@@ -39,13 +39,11 @@ const team = [
   },
   {
     name: "MICHELLE ALLMAN-ESDAILLE",
-    role: "SYNC STRATEGIST",
     photo: "/images/michelle.jpg",
     bio: "Michelle Allman-Esdaille is a Canadian music industry executive, sync strategist, and founder of The HOOK & Company, The HOOK Sync Group, and Sustainable Creative Living (SCL), a multi-platform ecosystem dedicated to sync licensing, artist development, and creative industry infrastructure. Michelle works across film, television, advertising, and interactive media, connecting independent artists and music catalogues to licensing opportunities in broadcast, streaming, and commercial media. Her work has supported placements across Canadian and U.S based television productions, independent film projects, and brand campaigns, helping shape how music is integrated into storytelling across screen-based media.",
   },
   {
     name: "KEVIN BRYANT",
-    role: "EXECUTIVE & PRODUCER",
     photo: "/images/kevin.jpg",
     objectPosition: "center 20%",
     bio: "Kevin Bryant is a multi-hyphenate executive, producer, and vocalist whose career occupies the intersection of live performance, broadcast radio, and narrative film. Based in Atlanta, Georgia, Kevin serves as the Founder and CEO of One Degree Entertainment, leading its music, management, and One Degree Entertainment Media & Film division—an initiative dedicated to bringing compelling independent stories to life while bridging sound and visual storytelling.",
@@ -130,9 +128,11 @@ export default function TeamSection() {
                 <h3 className="font-bebas text-2xl leading-tight" style={{ color: "var(--offwhite)", letterSpacing: "0.04em" }}>
                   {member.name}
                 </h3>
-                <p className="font-barlow font-semibold text-xs" style={{ color: "var(--orange)", letterSpacing: "0.14em" }}>
-                  {member.role}
-                </p>
+                {member.role && (
+                  <p className="font-barlow font-semibold text-xs" style={{ color: "var(--orange)", letterSpacing: "0.14em" }}>
+                    {member.role}
+                  </p>
+                )}
                 <p className="font-syne text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
                   {member.bio}
                 </p>
